@@ -10,92 +10,57 @@ import java.util.Date;
 public class FantasyLookup {
     private String story;
     private int rank;
-    private boolean isInjured;
-    private Date displayDate;
-    private int itemID;
+    private boolean is_injury;
+    private String display_ts;
+    private int item_id;
     private String teaser;
-    private boolean isCold;
+    private boolean is_cold;
     private String spin;
-    private boolean isHot;
-    private int playerID;
+    private boolean is_hot;
+    private int player_id;
+    private String display_ts_closer_fmt;
 
     public String getStory() {
         return story;
-    }
-
-    public void setStory(String story) {
-        this.story = story;
     }
 
     public int getRank() {
         return rank;
     }
 
-    public void setRank(int rank) {
-        this.rank = rank;
-    }
-
     public boolean isInjured() {
-        return isInjured;
+        return is_injury;
     }
 
-    public void setInjured(boolean injured) {
-        isInjured = injured;
-    }
-
-    public Date getDisplayDate() {
-        return displayDate;
-    }
-
-    public void setDisplayDate(Date displayDate) {
-        this.displayDate = displayDate;
+    public String getDisplayTimeString() {
+        return display_ts;
     }
 
     public int getItemID() {
-        return itemID;
-    }
-
-    public void setItemID(int itemID) {
-        this.itemID = itemID;
+        return item_id;
     }
 
     public String getTeaser() {
         return teaser;
     }
 
-    public void setTeaser(String teaser) {
-        this.teaser = teaser;
-    }
-
     public boolean isCold() {
-        return isCold;
-    }
-
-    public void setCold(boolean cold) {
-        isCold = cold;
+        return is_cold;
     }
 
     public String getSpin() {
         return spin;
     }
 
-    public void setSpin(String spin) {
-        this.spin = spin;
-    }
-
     public boolean isHot() {
-        return isHot;
-    }
-
-    public void setHot(boolean hot) {
-        isHot = hot;
+        return is_hot;
     }
 
     public int getPlayerID() {
-        return playerID;
+        return player_id;
     }
 
-    public void setPlayerID(int playerID) {
-        this.playerID = playerID;
+    public String getDisplayTimeCloserFormat() {
+        return display_ts_closer_fmt;
     }
 }
