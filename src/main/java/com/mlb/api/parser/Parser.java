@@ -2,9 +2,6 @@ package com.mlb.api.parser;
 
 import com.google.gson.Gson;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-
 /**
  * User: devon
  * Date: 5/4/13

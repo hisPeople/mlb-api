@@ -30,7 +30,6 @@ public class FantasyLookupParser {
             while((jsonIn = br.readLine()) != null) {
                 lookupJson = new JSONObject(jsonIn);
             }
-
             JSONObject news = lookupJson.getJSONObject("wsfb_fantasy_news_byplayer");
             JSONObject queryResults = news.getJSONObject("queryResults");
             JSONObject row = queryResults.getJSONObject("row");
@@ -43,7 +42,6 @@ public class FantasyLookupParser {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 
     public FantasyLookup getFantasyLookup(String json) {
