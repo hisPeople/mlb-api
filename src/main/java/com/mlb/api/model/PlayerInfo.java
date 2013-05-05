@@ -23,7 +23,7 @@ public class PlayerInfo {
     private String team_abbrev;
     private String status;
     private String name_display_last_first_html;
-    private String Throws;  // make sure gson gets this one!!!
+    private String Throws;  //
     private String death_city;
     private String primary_position_txt;
     private String high_school;
@@ -37,7 +37,7 @@ public class PlayerInfo {
     private String primary_sport_code;
     private String birth_state;
     private int weight;
-    private String middle_name;
+    private String name_middle;
     private String name_display_roster;
     private int jersey_number;
     private String end_date;
@@ -85,7 +85,7 @@ public class PlayerInfo {
         return age;
     }
 
-    public String geDisplayNameFirstLastHTML() {
+    public String getDisplayNameFirstLastHTML() {
         return name_display_first_last_html;
     }
 
@@ -123,6 +123,10 @@ public class PlayerInfo {
 
     public String getDisplayNameLastFirstHTML() {
         return name_display_last_first_html;
+    }
+
+    public void setThrows(String throwingHand) {
+        this.Throws = throwingHand;
     }
 
     public String getThrows() {
@@ -182,7 +186,7 @@ public class PlayerInfo {
     }
 
     public String getMiddleName() {
-        return middle_name;
+        return name_middle;
     }
 
     public String getNameDisplayRoster() {

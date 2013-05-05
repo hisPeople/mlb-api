@@ -1,6 +1,5 @@
 package com.mlb.api.parser;
 
-import com.google.gson.Gson;
 import com.mlb.api.model.FantasyLookup;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,13 +17,18 @@ import java.net.URL;
  */
 public class FantasyLookupParser {
 
-    private FantasyLookup fantasyLookup;
+    private static final String URL_STRING = "http://mlb.mlb.com/fantasylookup/json/named.wsfb_fantasy_news_byplayer.bam?playerid=";
+    private Parser<FantasyLookup> parser;
 
-    public static final String URL_STRING = "http://mlb.mlb.com/fantasylookup/json/named.wsfb_fantasy_news_byplayer.bam?playerid=425545";
     public FantasyLookupParser() {
+        parser = new Parser<FantasyLookup>(FantasyLookup.class);
+    }
+
+    public FantasyLookup parse(String playerID) {
         JSONObject lookupJson = null;
+        JSONObject row = null;
         try {
-            URL lookupUrl = new URL(URL_STRING);
+            URL lookupUrl = new URL(URL_STRING + playerID);
             BufferedReader br = new BufferedReader(new InputStreamReader(lookupUrl.openStream()));
             String jsonIn;
             while((jsonIn = br.readLine()) != null) {
@@ -32,9 +36,7 @@ public class FantasyLookupParser {
             }
             JSONObject news = lookupJson.getJSONObject("wsfb_fantasy_news_byplayer");
             JSONObject queryResults = news.getJSONObject("queryResults");
-            JSONObject row = queryResults.getJSONObject("row");
-
-            FantasyLookup fl = testGenericParser(row.toString());
+            row = queryResults.getJSONObject("row");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -42,17 +44,7 @@ public class FantasyLookupParser {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
+        return parser.parse(row.toString());
 
-    public FantasyLookup getFantasyLookup(String json) {
-        Gson gson = new Gson();
-        fantasyLookup = gson.fromJson(json, FantasyLookup.class);
-        return fantasyLookup;
-    }
-
-    public FantasyLookup testGenericParser(String json) {
-        Parser<FantasyLookup> fantasyLookupParser = new Parser<FantasyLookup>(FantasyLookup.class);
-        FantasyLookup fl = fantasyLookupParser.parse(json);
-        return fl;
     }
 }
