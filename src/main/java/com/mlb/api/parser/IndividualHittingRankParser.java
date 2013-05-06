@@ -1,5 +1,6 @@
 package com.mlb.api.parser;
 
+import com.mlb.api.model.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,19 +19,26 @@ import java.net.URL;
 public class IndividualHittingRankParser {
 
     private static final String URL_STRING = "http://mlb.mlb.com/lookup/json/named.mlb_individual_hitting_rank.bam?player_id=";
+    private Parser<IndividualHittingRank> parser;
 
-    public IndividualHittingRankParser(String playerID) {
+    public IndividualHittingRankParser() {
+        parser = new Parser<IndividualHittingRank>(IndividualHittingRank.class);
+    }
+
+    public IndividualHittingRank[] parse(String playerID) {
         JSONObject jsonObject = null;
+        JSONArray row = null;
+
         try {
-            URL playerInfoUrl = new URL(URL_STRING + playerID);
-            BufferedReader br = new BufferedReader(new InputStreamReader(playerInfoUrl.openStream()));
+            URL hittingRankUrl = new URL(URL_STRING + playerID);
+            BufferedReader br = new BufferedReader(new InputStreamReader(hittingRankUrl.openStream()));
             String jsonIn;
             while((jsonIn = br.readLine()) != null) {
                 jsonObject = new JSONObject(jsonIn);
             }
             JSONObject playerInfo = jsonObject.getJSONObject("mlb_individual_hitting_rank");
             JSONObject queryResults = playerInfo.getJSONObject("queryResults");
-            JSONArray row = queryResults.getJSONArray("row");
+            row = queryResults.getJSONArray("row");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (JSONException e) {
@@ -38,5 +46,15 @@ public class IndividualHittingRankParser {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        IndividualHittingRank[] hittingRanks = new IndividualHittingRank[row.length()];
+        for(int i = 0; i < row.length(); i++) {
+            try {
+                hittingRanks[i] = parser.parse(row.get(i).toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return hittingRanks;
     }
 }

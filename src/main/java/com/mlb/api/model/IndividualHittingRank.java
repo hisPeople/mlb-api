@@ -7,54 +7,54 @@ package com.mlb.api.model;
  */
 public class IndividualHittingRank {
     private String league_code;
-    private int avg_rank;
-    private int h_rank;
-    private int ao_rank;
-    private int h3b_rank;
-    private int go_ao_rank;
-    private int hr_rank;
+    private String avg_rank;
+    private String h_rank;
+    private String ao_rank;
+    private String h3b_rank;
+    private String go_ao_rank;
+    private String hr_rank;
     private int tb;
-    private int hbp_rank;
+    private String hbp_rank;
     private int h2b;
-    private int so_rank;
+    private String so_rank;
     private double slg;
     private double avg;
     private int bb;
     private double ops;
-    private int slg_rank;
+    private String slg_rank;
     private String team_full;
     private String team_abbrev;
     private int so;
-    private int h2b_rank;
-    private int ab_rank;
-    private int sb_rank;
+    private String h2b_rank;
+    private String ab_rank;
+    private String sb_rank;
     private int cs;
-    private int r_rank;
+    private String r_rank;
     private int season;
-    private int bb_rank;
-    private int go_rank;
+    private String bb_rank;
+    private String go_rank;
     private double go_ao;
     private int sb;
     private int h3b;
     private int ibb;
     private int team_id;
     private int go;
-    private int tb_rank;
+    private String tb_rank;
     private int hr;
     private String qualifies;
     private int rbi;
-    private int rbi_rank;
-    private int g_rank;
+    private String rbi_rank;
+    private String g_rank;
     private String league_short;
-    private int cs_rank;
+    private String cs_rank;
     private int g;
     private String league_abbrev;
     private String team_short;
-    private int obp_rank;
-    private int ops_rank;
+    private String obp_rank;
+    private String ops_rank;
     private int h;
     private double obp;
-    private int ibb_rank;
+    private String ibb_rank;
     private int ao;
     private int r;
     private int ab;
@@ -63,27 +63,27 @@ public class IndividualHittingRank {
         return league_code;
     }
 
-    public int getAverageRank() {
+    public String getAverageRank() {
         return avg_rank;
     }
 
-    public int getHitsRank() {
+    public String getHitsRank() {
         return h_rank;
     }
 
-    public int getFlyoutsRank() {
+    public String getFlyoutsRank() {
         return ao_rank;
     }
 
-    public int getTriplesRank() {
+    public String getTriplesRank() {
         return h3b_rank;
     }
 
-    public int getGroundoutToFlyoutRank() {
+    public String getGroundoutToFlyoutRank() {
         return go_ao_rank;
     }
 
-    public int getHomerunRank() {
+    public String getHomerunRank() {
         return hr_rank;
     }
 
@@ -91,7 +91,7 @@ public class IndividualHittingRank {
         return tb;
     }
 
-    public int getHitByPitchRank() {
+    public String getHitByPitchRank() {
         return hbp_rank;
     }
 
@@ -99,7 +99,7 @@ public class IndividualHittingRank {
         return h2b;
     }
 
-    public int getStrikoutRank() {
+    public String getStrikoutRank() {
         return so_rank;
     }
 
@@ -119,7 +119,7 @@ public class IndividualHittingRank {
         return ops;
     }
 
-    public int getSluggingRank() {
+    public String getSluggingRank() {
         return slg_rank;
     }
 
@@ -135,15 +135,15 @@ public class IndividualHittingRank {
         return so;
     }
 
-    public int getDoublesRank() {
+    public String getDoublesRank() {
         return h2b_rank;
     }
 
-    public int getAtBatsRank() {
+    public String getAtBatsRank() {
         return ab_rank;
     }
 
-    public int getStolenBasesRank() {
+    public String getStolenBasesRank() {
         return sb_rank;
     }
 
@@ -151,7 +151,7 @@ public class IndividualHittingRank {
         return cs;
     }
 
-    public int getRunsRank() {
+    public String getRunsRank() {
         return r_rank;
     }
 
@@ -159,11 +159,11 @@ public class IndividualHittingRank {
         return season;
     }
 
-    public int getWalksRank() {
+    public String getWalksRank() {
         return bb_rank;
     }
 
-    public int getGroundoutsRank() {
+    public String getGroundoutsRank() {
         return go_rank;
     }
 
@@ -191,7 +191,7 @@ public class IndividualHittingRank {
         return go;
     }
 
-    public int getTotalBasesRank() {
+    public String getTotalBasesRank() {
         return tb_rank;
     }
 
@@ -208,11 +208,11 @@ public class IndividualHittingRank {
         return rbi;
     }
 
-    public int getRunsBattedInRank() {
+    public String getRunsBattedInRank() {
         return rbi_rank;
     }
 
-    public int getGamesRank() {
+    public String getGamesRank() {
         return g_rank;
     }
 
@@ -220,7 +220,7 @@ public class IndividualHittingRank {
         return league_short;
     }
 
-    public int getCaughtStealingRank() {
+    public String getCaughtStealingRank() {
         return cs_rank;
     }
 
@@ -236,11 +236,11 @@ public class IndividualHittingRank {
         return team_short;
     }
 
-    public int getOnBasePercentageRank() {
+    public String getOnBasePercentageRank() {
         return obp_rank;
     }
 
-    public int getOPSRank() {
+    public String getOPSRank() {
         return ops_rank;
     }
 
@@ -252,7 +252,7 @@ public class IndividualHittingRank {
         return obp;
     }
 
-    public int getIntentionalWalksRank() {
+    public String getIntentionalWalksRank() {
         return ibb_rank;
     }
 
