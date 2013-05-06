@@ -18,8 +18,8 @@ import java.net.URL;
 public class PlayerInfoParser {
 
     private static final String URL_STRING = "http://mlb.mlb.com/lookup/json/named.player_info.bam?sport_code=%27mlb%27&player_id=";
-
     private Parser<PlayerInfo> parser;
+
     public PlayerInfoParser() {
         parser = new Parser<PlayerInfo>(PlayerInfo.class);
     }
@@ -39,7 +39,7 @@ public class PlayerInfoParser {
             JSONObject queryResults = playerInfo.getJSONObject("queryResults");
             row = queryResults.getJSONObject("row");
 
-            // parse throws because Gson wont becuase it is a reserved word
+            // parse 'throws' manually because Gson wont as it is a Java reserved word
             throwingHand = row.getString("throws");
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -48,7 +48,6 @@ public class PlayerInfoParser {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         PlayerInfo playerInfo = parser.parse(row.toString());
         playerInfo.setThrows(throwingHand);
         return playerInfo;
