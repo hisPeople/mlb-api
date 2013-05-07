@@ -1,249 +1,66 @@
 package com.mlb.api.stats.parser;
 
+import com.mlb.api.parser.*;
+import com.mlb.api.stats.model.SortablePlayerStats;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 /**
  * User: devon
  * Date: 5/5/13
  * Time: 8:01 AM
  */
 public class SortablePlayerStatsParser {
-    private int hr;
-    private int gidp;
-    private int minimum_qualifier;
-    private int np;
-    private int sac;
-    private int gdp;
-    private String name_display_first_last;
-    private String name_display_roster;
-    private String qualifies;
-    private String pos;
-    private int rbi;
-    private int rank;
-    private int tb;
-    private String bats;
-    private int xbh;
-    private String name_display_last_init;
-    private double slg;
-    private double avg;
-    private int bb;
-    private double ops;
-    private int hbp;
-    private int g;
-    private int d;
-    private String team_abbrev;
-    private int so;
-    private String team_name;
-    private int league_id;
-    private int sf;
-    private String team;
-    private String league;
-    private int tpa;
-    private String name_display_last_first;
-    private int h;
-    private int cs;
-    private double obp;
-    private int t;
-    private int ao;
-    private int r;
-    private double go_ao;
-    private int sb;
-    private String last_name;
-    private int player_id;
-    private int ibb;
-    private int ab;
-    private String name_last;
-    private int player_qualifier;
-    private int team_id;
-    private int go;
+    private static final String URL_STRING = "http://mlb.mlb.com/stats/sortable.jsp?c_id=mlb&" +
+            "tcid=mm_mlb_stats#statType=hitting&elem=%5Bobject+Object%5D&tab_level=child&" +
+            "click_text=Sortable+Player+hitting&%23167%3BionType=sp&page=1&ts=1367944438272&season=2013&season_type=ANY&" +
+            "playerType=QUALIFIER&sportCode='mlb'&league_code='MLB'&split=&team_id=&active_sw=&game_type='R'&position=&" +
+            "page_type=SortablePlayer&sortOrder='desc'&sortColumn=ip&results=&perPage=50&timeframe=&last_x_days=&" +
+            "extended=0&sectionType=sp";
 
-    public int getHomeruns() {
-        return hr;
+    private Parser<SortablePlayerStats> parser;
+
+    public SortablePlayerStatsParser() {
+        parser = new Parser<SortablePlayerStats>(SortablePlayerStats.class);
     }
 
-    public int getMinimumQualifyingNumber() {
-        return minimum_qualifier;
-    }
+    public SortablePlayerStats[] parse() {
+        JSONObject jsonObject = null;
+        JSONArray row = null;
 
+        try {
+            URL pitchingRankUrl = new URL(URL_STRING );
+            BufferedReader br = new BufferedReader(new InputStreamReader(pitchingRankUrl.openStream()));
+            String jsonIn;
+            while((jsonIn = br.readLine()) != null) {
+                jsonObject = new JSONObject(jsonIn);
+            }
+            JSONObject sortableStats = jsonObject.getJSONObject("stats_sortable_player");
+            JSONObject queryResults = sortableStats.getJSONObject("queryResults");
+            row = queryResults.getJSONArray("row");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-    public int getNumberOfPitches() {
-        return np;
-    }
-
-    public int getSacrificeBunts() {
-        return sac;
-    }
-
-    public int getGroundedIntoDoublePlay() {
-        return gdp;
-    }
-
-    public String getNameDisplayFirstLast() {
-        return name_display_first_last;
-    }
-
-    public String getDisplayNameRoster() {
-        return name_display_roster;
-    }
-
-    // allows access to 'qualifies' as a boolean
-    public boolean isQualifier() {
-        return qualifies.equals("Y");
-    }
-
-    public String getPosition() {
-        return pos;
-    }
-
-    public int getRunsBattedIn() {
-        return rbi;
-    }
-
-    public int getRank() {
-        return rank;
-    }
-
-    public int getTotalBases() {
-        return tb;
-    }
-
-    public String getBats() {
-        return bats;
-    }
-
-    public int getExtraBaseHits() {
-        return xbh;
-    }
-
-    public String getNameDisplayLastInitial() {
-        return name_display_last_init;
-    }
-
-    public double getSluggingPercentage() {
-        return slg;
-    }
-
-    public double getBattingAverage() {
-        return avg;
-    }
-
-    public int getWalks() {
-        return bb;
-    }
-
-    public double getOnBasePlusSlugging() {
-        return ops;
-    }
-
-    public int getHitByPitch() {
-        return hbp;
-    }
-
-    public int getGames() {
-        return g;
-    }
-
-    // what is this
-    public int getD() {
-        return d;
-    }
-
-    public String getTeamNameAbbrev() {
-        return team_abbrev;
-    }
-
-    public int getStrikeouts() {
-        return so;
-    }
-
-    public String getTeamName() {
-        return team_name;
-    }
-
-    public int getLeagueID() {
-        return league_id;
-    }
-
-    public int getSacrificeFlies() {
-        return sf;
-    }
-
-    public String getTeam() {
-        return team;
-    }
-
-    public String getLeague() {
-        return league;
-    }
-
-    public int getTotalPlateAppearances() {
-        return tpa;
-    }
-
-    public String getNameDisplayLastFirst() {
-        return name_display_last_first;
-    }
-
-    public int getHits() {
-        return h;
-    }
-
-    public int getCaughtStealing() {
-        return cs;
-    }
-
-    public double getOnBasePercentage() {
-        return obp;
-    }
-
-    // what is this??
-    public int getT() {
-        return t;
-    }
-
-    public int getFlyouts() {
-        return ao;
-    }
-
-    public int getRuns() {
-        return r;
-    }
-
-    public double getGroundoutToFlyoutRatio() {
-        return go_ao;
-    }
-
-    public int getStolenBases() {
-        return sb;
-    }
-
-    public String getLastName() {
-        return last_name;
-    }
-
-    public int getPlayerID() {
-        return player_id;
-    }
-
-    public int getIntentionalWalks() {
-        return ibb;
-    }
-
-    public int getAtBats() {
-        return ab;
-    }
-
-    public String getNameLast() {
-        return name_last;
-    }
-
-    public int getPlayerQualifierNumber() {
-        return player_qualifier;
-    }
-
-    public int getTeamID() {
-        return team_id;
-    }
-
-    public int getGroundOuts() {
-        return go;
+        SortablePlayerStats[] sortablePlayerStats = new SortablePlayerStats[row.length()];
+        for(int i = 0; i < row.length(); i++) {
+            try {
+                sortablePlayerStats[i] = parser.parse(row.get(i).toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return sortablePlayerStats;
     }
 }
