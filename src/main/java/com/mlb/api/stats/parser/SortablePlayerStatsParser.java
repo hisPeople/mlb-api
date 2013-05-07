@@ -18,12 +18,7 @@ import java.net.URL;
  * Time: 8:01 AM
  */
 public class SortablePlayerStatsParser {
-    private static final String URL_STRING = "http://mlb.mlb.com/stats/sortable.jsp?c_id=mlb&" +
-            "tcid=mm_mlb_stats#statType=hitting&elem=%5Bobject+Object%5D&tab_level=child&" +
-            "click_text=Sortable+Player+hitting&%23167%3BionType=sp&page=1&ts=1367944438272&season=2013&season_type=ANY&" +
-            "playerType=QUALIFIER&sportCode='mlb'&league_code='MLB'&split=&team_id=&active_sw=&game_type='R'&position=&" +
-            "page_type=SortablePlayer&sortOrder='desc'&sortColumn=ip&results=&perPage=50&timeframe=&last_x_days=&" +
-            "extended=0&sectionType=sp";
+    private static final String URL_STRING = "http://mlb.mlb.com/pubajax/wf/flow/stats.splayer?season=2013&sort_order='desc'&sort_column='avg'&stat_type=hitting&page_type=SortablePlayer&game_type='R'&player_pool=QUALIFIER&season_type=ANY&sport_code='mlb'&results=1000&recSP=1&recPP=50";
 
     private Parser<SortablePlayerStats> parser;
 
@@ -36,10 +31,10 @@ public class SortablePlayerStatsParser {
         JSONArray row = null;
 
         try {
-            URL pitchingRankUrl = new URL(URL_STRING );
-            BufferedReader br = new BufferedReader(new InputStreamReader(pitchingRankUrl.openStream()));
+            URL sortableStatsUrl = new URL(URL_STRING);
+            BufferedReader br = new BufferedReader(new InputStreamReader(sortableStatsUrl.openStream()));
             String jsonIn;
-            while((jsonIn = br.readLine()) != null) {
+            while((jsonIn = br.readLine()) != null) {                System.out.println();
                 jsonObject = new JSONObject(jsonIn);
             }
             JSONObject sortableStats = jsonObject.getJSONObject("stats_sortable_player");

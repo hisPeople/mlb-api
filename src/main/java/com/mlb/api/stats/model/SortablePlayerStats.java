@@ -141,8 +141,7 @@ public class SortablePlayerStats {
         return g;
     }
 
-    // what is this
-    public int getD() {
+    public int getDoubles() {
         return d;
     }
 
@@ -194,8 +193,7 @@ public class SortablePlayerStats {
         return obp;
     }
 
-    // what is this??
-    public int getT() {
+    public int getTriples() {
         return t;
     }
 
