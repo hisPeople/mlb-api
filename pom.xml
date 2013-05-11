@@ -5,8 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>mlb-api</groupId>
-    <artifactId>lookup</artifactId>
+    <artifactId>mlb.api</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>historical-data-fetcher</module>
+        <module>player-data</module>
+        <module>gameday</module>
+    </modules>
     <dependencies>
         <dependency>
             <groupId>org.json</groupId>
