@@ -75,10 +75,11 @@ public class MasterScoreboardParser {
         }
         MasterScoreboard masterScoreboard = parser.parse(String.valueOf(jsonObject));
         MasterScoreboardGame[] masterScoreboardGames = new MasterScoreboardGame[gameArray.length()];
+        Gson gson = new Gson();
         for(int i = 0; i < gameArray.length(); i++) {
             try {
-                Gson gson = new Gson();
-                masterScoreboardGames[i] = gson.fromJson(gameArray.get(i).toString(), MasterScoreboardGame.class);
+                MasterScoreboardGame msg = gson.fromJson(gameArray.get(i).toString(), MasterScoreboardGame.class);
+                masterScoreboardGames[i] = msg;
             } catch (JSONException e) {
                 e.printStackTrace();
             }

@@ -7,7 +7,6 @@ package com.mlb.api.model.masterscoreboard;
  */
 
 public class MasterScoreboardGame {
-    private MasterScoreboardBroadcast broadcast;
     private MasterScoreboardSavePitcher save_pitcher;
     private String game_type;
     private String double_header_sw;
@@ -56,7 +55,6 @@ public class MasterScoreboardGame {
     private String first_pitch_et;
     private String away_team_name;
 
-    private Homeruns home_runs;
     private String time_date_hm_lg;
     private String id;
     private String home_name_abbrev;
@@ -90,9 +88,6 @@ public class MasterScoreboardGame {
         return away_division;
     }
 
-    public MasterScoreboardBroadcast getBroadcast() {
-        return broadcast;
-    }
 
     public MasterScoreboardSavePitcher getSave_pitcher() {
         return save_pitcher;
@@ -268,10 +263,6 @@ public class MasterScoreboardGame {
 
     public String getAway_team_name() {
         return away_team_name;
-    }
-
-    public Homeruns getHome_runs() {
-        return home_runs;
     }
 
     public String getTime_date_hm_lg() {
