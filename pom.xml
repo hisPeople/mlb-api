@@ -9,9 +9,11 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>historical-data-fetcher</module>
+        <module>pitch-fx-data-fetcher</module>
         <module>player-data</module>
         <module>gameday</module>
+        <module>pitch-data</module>
+        <module>pitch-fx-fetcher</module>
     </modules>
     <dependencies>
         <dependency>
