@@ -25,16 +25,13 @@ public class Fetcher {
         monthDir.mkdir();
         File dayDir = new File(monthDir, day);
         dayDir.mkdir();
-        // search mini scoreboard for all games
-        // get the number innings for the game
-        // loop through and save all the inning files;
+
 
         JSONObject jsonObject = null;
         JSONObject data = null;
         JSONObject games = null;
         JSONArray gameArray = null;
         String gamedayLink = null;
-        String miniscoreboardurl = BASE_URL + YEAR + year + MONTH + month + DAY + day + "/miniscoreboard.json";
         String masterscoreboardurl = BASE_URL + YEAR + year + MONTH + month + DAY + day + "/master_scoreboard.json";
         try {
             URL msUrl = new URL(masterscoreboardurl);
@@ -46,7 +43,14 @@ public class Fetcher {
 
             data = jsonObject.getJSONObject("data");
             games = data.getJSONObject("games");
-            gameArray = games.getJSONArray("game");
+            if(games.get("game") instanceof JSONObject) {
+                JSONObject game = games.getJSONObject("game");
+                gameArray = new JSONArray();
+                gameArray.put(game);
+
+            } else if (games.get("game") instanceof JSONArray) {
+                gameArray = games.getJSONArray("game");
+            }
 
             for(int i = 0; i < gameArray.length(); i++) {
                 JSONObject game = gameArray.getJSONObject(i);
