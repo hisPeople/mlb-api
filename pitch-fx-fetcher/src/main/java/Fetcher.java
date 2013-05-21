@@ -35,8 +35,9 @@ public class Fetcher {
         JSONArray gameArray = null;
         String gamedayLink = null;
         String miniscoreboardurl = BASE_URL + YEAR + year + MONTH + month + DAY + day + "/miniscoreboard.json";
+        String masterscoreboardurl = BASE_URL + YEAR + year + MONTH + month + DAY + day + "/master_scoreboard.json";
         try {
-            URL msUrl = new URL(miniscoreboardurl);
+            URL msUrl = new URL(masterscoreboardurl);
             BufferedReader br = new BufferedReader(new InputStreamReader(msUrl.openStream()));
             String jsonIn;
             while((jsonIn = br.readLine()) != null) {
@@ -49,27 +50,26 @@ public class Fetcher {
 
             for(int i = 0; i < gameArray.length(); i++) {
                 JSONObject game = gameArray.getJSONObject(i);
-                gamedayLink = "gid_" + game.getString("gameday_link");
-                int innings = game.getInt("inning");
-                String urlWithGamedayLink = BASE_URL + YEAR + year + MONTH + month + DAY + day + "/" + gamedayLink + "/inning";
-                File gameDir = new File(dayDir, gamedayLink);
-                gameDir.mkdir();
-                for(int j = 1; j <= innings; j++) {
-                    URL fileUrl = new URL(urlWithGamedayLink + "/inning_" + j + ".xml");
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileUrl.openStream()));
-                    String inningIn;
-                    File inningFile = new File(gameDir, "inning_" + j + ".xml");
-                    inningFile.createNewFile();
-                    if(inningFile.exists()) {
-                        System.out.println("created file: " + inningFile.getAbsolutePath());
-                    } else {
-                        System.out.println("Should have saved but didn't :(");
+                gamedayLink = "gid_" + game.getString("gameday");
+                JSONObject statusObj = game.getJSONObject("status");
+                if(!statusObj.getString("status").equals("Postponed")) {
+                    int innings = statusObj.getInt("inning");
+                    String urlWithGamedayLink = BASE_URL + YEAR + year + MONTH + month + DAY + day + "/" + gamedayLink + "/inning";
+                    File gameDir = new File(dayDir, gamedayLink);
+                    gameDir.mkdir();
+                    System.out.println("Fetching " + gamedayLink + "...");
+                    for(int j = 1; j <= innings; j++) {
+                        URL fileUrl = new URL(urlWithGamedayLink + "/inning_" + j + ".xml");
+                        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileUrl.openStream()));
+                        String inningIn;
+                        File inningFile = new File(gameDir, "inning_" + j + ".xml");
+                        inningFile.createNewFile();
+                        FileWriter fileWriter = new FileWriter(inningFile);
+                        while((inningIn = bufferedReader.readLine()) != null) {
+                            fileWriter.write(inningIn);
+                        }
+                        fileWriter.close();
                     }
-                    FileWriter fileWriter = new FileWriter(inningFile);
-                    while((inningIn = bufferedReader.readLine()) != null) {
-                        fileWriter.write(inningIn);
-                    }
-                    fileWriter.close();
                 }
             }
         } catch (FileNotFoundException e) {
